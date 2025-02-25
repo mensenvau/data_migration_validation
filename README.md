@@ -1,12 +1,12 @@
-# Data Validation Documentation for Source and Target Tables in Databricks
+## Data Validation Documentation for Source and Target Tables in Databricks
 
-## 1. Overview
+### 1. Overview
 
 This documentation details the validation process for ensuring data consistency between any source/target tables in the Databricks environment. The validation process is managed using a set of Databricks Notebooks that perform data quality checks based on metadata-driven execution.
 
-## 2. Components
+### 2. Components
 
-### 2.1 Validation Metadata Notebook
+#### 2.1 Validation Metadata Notebook
 
 The `validation_metadata` notebook is responsible for creating and populating the metadata table that stores validation rules.
 
@@ -21,18 +21,18 @@ The `validation_metadata` notebook is responsible for creating and populating th
   - `target_query` – SQL query for target table validation.
   - **Note**: The source and target queries must return columns in the same order and with identical names for proper validation.
 
-## 3. Validation Process
+### 3. Validation Process
 
 The validation process iterates through records stored in `validation_metadata_table`, executes source and target queries, and performs three types of validation checks:
 
-### 3.1 Data Reading Function
+#### 3.1 Data Reading Function
 
 A function `read_data` fetches data from Databricks or JDBC sources based on metadata:
 
 - Reads data from the specified source using Spark SQL.
 - Generates a `unique_key` column using SHA-256 hashing to identify unique records.
 
-### 3.2 Validation Checks
+#### 3.2 Validation Checks
 
 - **Row Count Validation (Test 1)**
   - Compares the number of rows in the source and target tables.
@@ -45,7 +45,7 @@ A function `read_data` fetches data from Databricks or JDBC sources based on met
   - Identifies duplicate `unique_key` records in source and target tables.
   - If duplicates exist, the validation fails. _(Source and target rows don't match.)_
 
-### 3.3 Validation Metrics Table
+#### 3.3 Validation Metrics Table
 
 The validation results are stored in `catalog_name.default.validation_metrics_table` with the following schema:
 
@@ -60,7 +60,7 @@ The validation results are stored in `catalog_name.default.validation_metrics_ta
 
 Each validation result is appended to this table for tracking purposes.
 
-## 4. Execution Flow
+### 4. Execution Flow
 
 - **Populate Metadata Table:**
   - Insert validation rules into `validation_metadata_table`.
@@ -75,7 +75,7 @@ Each validation result is appended to this table for tracking purposes.
 - **Analyze and Resolve Issues:**
   - Review failed validations and take corrective actions.
 
-## 5. Sample Validation Queries
+### 5. Sample Validation Queries
 
 The following queries validate the data consistency between source and target tables:
 
@@ -88,6 +88,6 @@ VALUES
 (1, 'Databricks SQL', NULL, 'SELECT * FROM source_table', 'Databricks SQL', NULL, 'SELECT * FROM target_table');
 ```
 
-## 6. Conclusion
+### 6. Conclusion
 
 This validation framework ensures data integrity between source and target tables. The metadata-driven approach allows for scalable and dynamic validation with minimal manual intervention.
