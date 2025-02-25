@@ -38,30 +38,6 @@
 # MAGIC   "databricks",
 # MAGIC   "",
 # MAGIC   "SHOW COLUMNS IN target_schema.target_table"
-# MAGIC ), (
-# MAGIC   3,
-# MAGIC   "databricks",
-# MAGIC   "",
-# MAGIC   "SELECT  approver_Name, approver_EmployeeID, approver_UserID, count(*) as count 
-# MAGIC   FROM  source_schema.source_table 
-# MAGIC   group by approver_Name, approver_EmployeeID, approver_UserID",
-# MAGIC   "databricks",
-# MAGIC   "",
-# MAGIC   "SELECT  approver_Name, approver_EmployeeID, approver_UserID, count(*) as count 
-# MAGIC   FROM target_schema.target_table
-# MAGIC   group by approver_Name, approver_EmployeeID, approver_UserID"
-# MAGIC ), (
-# MAGIC   4,
-# MAGIC   "databricks",
-# MAGIC   "",
-# MAGIC   "SELECT distinct currency_Code, documentation_ID,  count(*) as count
-# MAGIC   FROM  source_schema.source_table
-# MAGIC   group by currency_Code, documentation_ID",
-# MAGIC   "databricks",
-# MAGIC   "",
-# MAGIC   "SELECT distinct  currency_Code, documentation_ID,  count(*) as count
-# MAGIC   FROM target_schema.target_table
-# MAGIC   group by  currency_Code, documentation_ID"
 # MAGIC );
 
 # COMMAND ----------
